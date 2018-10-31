@@ -1,0 +1,55 @@
+package primos;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class primos {
+	public static void main(String[] args) {
+		
+		//final double MS_POR_SEGUNDO=1000;
+		final double NS_POR_SEGUNDO=1000000000;
+		String servidor = "servidor 1";
+		
+		//calcula si es primo;
+		 Scanner leer = new Scanner(System.in);
+         //numeros primos
+         int limite;
+         ArrayList<String> cadena = new ArrayList<String>();
+         System.out.println("Ingrese un numero: ");
+         limite = leer.nextInt();
+       //imptime mensaje hasta que número tiene que procesar
+         //System.out.println("los numeros primos hasta el numero: "+limite);
+         //inicia conteo de tiempo
+         long INICIO_NS = System.nanoTime();
+         //System.out.println("1");
+         for(int i=1;i<limite;i++) {
+             int count=0;
+         for(int j=1;j<=i;j++) {	
+            
+             if(i%j==0)
+                 count++;
+             }
+            if(count==2) {
+               //System.out.println(i);
+            	//System.out.println("hola empezamos");
+            	String numeros = String.valueOf(i);
+            	//System.out.println(numeros);
+            	cadena.add(numeros);
+
+            }
+            
+         }
+         // finaliza el punto del proceso
+         //System.out.println("los valores guardados en el array");
+         //System.out.println(cadena);
+		long DURACIÓN_NS = System.nanoTime()-INICIO_NS;
+		double DURACIÓN_S2  = DURACIÓN_NS / NS_POR_SEGUNDO;	
+		//System.out.println("Test 2 resultados en Nanosegundos del servidor 1");
+		//System.out.println("El algoritmo se demoro " + DURACIÓN_NS + " Nanosegundos");;
+		//System.out.println("El algoritmo se demoro " + DURACIÓN_S2 + " Segundos");
+		String nanosegundos = String.valueOf(" Nanosegundos "+DURACIÓN_NS);
+		String segundos = String.valueOf(" Segundos " + DURACIÓN_S2);
+		String todo = servidor + "-" + cadena + "-" + nanosegundos + "-" + segundos ;
+		System.out.println(todo);
+		
+	}
+}
