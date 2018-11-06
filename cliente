@@ -1,0 +1,59 @@
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.Scanner;
+
+public class Client {
+
+    private Client() {}
+
+    public static void main(String[] args) {
+
+        //String host = (args.length < 1) ? null : args[0];
+        String host1 = "192.168.56.101";
+        String host2 = "192.168.56.103";
+        String host3 = "192.168.56.104";
+
+
+        try {
+            Registry registry = LocateRegistry.getRegistry(host1);
+            Registry registry2 = LocateRegistry.getRegistry(host2);
+            Registry registry3 = LocateRegistry.getRegistry(host3);
+            RemoteInterface stub = (RemoteInterface) registry.lookup("RemoteInterface");
+            RemoteInterface stub2 = (RemoteInterface) registry2.lookup("RemoteInterface");
+            RemoteInterface stub3 = (RemoteInterface) registry3.lookup("RemoteInterface");
+            String response = stub.welcomeMessage();
+            String response2 = stub2.welcomeMessage();
+            String response3 = stub3.welcomeMessage();
+            System.out.println(response);
+            System.out.println(response2);
+            System.out.println(response3);
+			System.out.println("Ingrese un numero para identificar sus primo");
+            Scanner sc = new Scanner(System.in);
+            Integer num =sc.nextInt();
+            Integer a = num;
+            Integer b = num;
+            Integer c = num;
+            response = stub.service(a);
+            response2 = stub2.service(b);
+            response3 = stub2.service(c);
+            System.out.println(response);
+            System.out.println(response2);
+            System.out.println(response3);
+            response = stub.goodByeMessage();
+            response2 = stub2.goodByeMessage();
+            response3 = stub3.goodByeMessage();
+            System.out.println(response);
+            System.out.println(response2);
+            System.out.println(response3);
+
+            
+
+
+
+
+        } catch (Exception e) {
+            System.err.println("Client exception: " + e.toString());
+            e.printStackTrace();
+        }
+    }
+}
