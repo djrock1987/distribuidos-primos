@@ -1,0 +1,13 @@
+if (EnteroPart1 > EnteroPart2) && (EnteroPart1 > EnteroPart3); {
+	String comando = "shutdown -h now \\" +host1;
+	System.out.println(host1);
+	Runtime.getRuntime().exec(comando);
+		} else if (EnteroPart2 > EnteroPart1) && (EnteroPart2 > EnteroPart3); {
+	String comando = "shutdown -h now \\" +host2;
+	System.out.println(host2);
+	Runtime.getRuntime().exec(comando);
+		}else {
+	String comando = "shutdown -h now \\" +host3;
+	System.out.println(host3);
+	Runtime.getRuntime().exec(comando);
+	} 
