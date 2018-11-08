@@ -1,0 +1,83 @@
+import java.rmi.registry.Registry;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.*;
+
+
+        
+public class ServerClass implements RemoteInterface {
+        
+    public String welcomeMessage(){
+		return "..:: Bienvenido al Servidor ::...";
+	}
+	public String service(Integer a){
+		final double NS_POR_SEGUNDO=1000000000;
+		String servidor = "servidor 1";
+		
+		 //Scanner leer = new Scanner(System.in);
+         int limite;
+         ArrayList<String> cadena = new ArrayList<String>();
+   
+         limite = a;
+         long INICIO_NS = System.nanoTime();
+         //System.out.println("1");
+         for(int i=1;i<limite;i++) {
+             int count=0;
+         for(int j=1;j<=i;j++) {	
+            
+             if(i%j==0)
+                 count++;
+             }
+            if(count==2) {
+               //System.out.println(i);
+            	//System.out.println("hola empezamos");
+            	String numeros = String.valueOf(i);
+            	//System.out.println(numeros);
+            	cadena.add(numeros);
+
+            }
+            
+         }
+         
+		long DURACIÓN_NS = System.nanoTime()-INICIO_NS;
+		double DURACIÓN_S2  = DURACIÓN_NS / NS_POR_SEGUNDO;	
+		String nanosegundos = String.valueOf(DURACIÓN_NS);
+		String segundos = String.valueOf(" Segundos " + DURACIÓN_S2);
+		String todo = servidor + "-" + cadena + "-" + nanosegundos + "-" + segundos ;
+		//System.out.println(todo);
+		return todo;
+		
+	}
+	public String goodByeMessage() throws Exception{
+		String comando = "shutdown -h now";
+		//System.out.println(host2);
+		Runtime.getRuntime().exec(comando);
+		//return "Se esta desconectando, Gracias por Utilizar nuestros Servicios, Vuelva Pronto";
+return null;
+	}
+	
+
+
+	public String sayHello() {
+        return "Hello, world!";
+    }
+        
+    public static void main(String args[]) {
+        
+        try {
+            ServerClass obj = new ServerClass();
+	    System.setProperty("java.rmi.server.hostname","192.168.56.102");
+            RemoteInterface stub = (RemoteInterface) UnicastRemoteObject.exportObject(obj, 0);
+
+            Registry registry = LocateRegistry.getRegistry();
+            registry.bind("RemoteInterface", stub);
+
+            System.err.println("Server ready... expecting connections");
+        } catch (Exception e) {
+            System.err.println("Server exception: " + e.toString());
+            e.printStackTrace();
+        }
+    }
+}
